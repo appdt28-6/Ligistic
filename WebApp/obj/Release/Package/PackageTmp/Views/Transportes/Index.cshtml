@@ -1,0 +1,71 @@
+﻿@{
+    ViewBag.Title = "Rutas Activas";
+} 
+<!-- Title -->
+<div class="row heading-bg">
+    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+        <h5 class="txt-dark">Panel de Control</h5>
+    </div>
+    <!-- Breadcrumb -->
+    <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+        <ol class="breadcrumb">
+            <li><a href="index.html">Dashboard</a></li>
+            <li><a href="#"><span>Configuracion</span></a></li>
+            <li class="active"><span>Rutas</span></li>
+        </ol>
+    </div>
+    <!-- /Breadcrumb -->
+</div>
+<!-- /Title -->
+<!-- Row -->
+<div class="row">
+    <div class="col-sm-12">
+        <div class="panel panel-default card-view">
+            <div class="panel-heading">
+                <div class="pull-left">
+                    <h6 class="panel-title txt-dark">Rutas Activas</h6>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="panel-wrapper collapse in">
+                <div class="panel-body">
+                    <div class="table-wrap">
+                        <div class="table-responsive">
+                            @(Html.Kendo().Grid<WebApp.Models.TRANS_LOGISTIC>()
+      .Name("grid")
+      .Columns(columns =>
+      {
+          columns.Bound(c => c.tran_id).Hidden();
+          columns.Bound(c => c.tran_name).Title("Nombre");
+          columns.Bound(c => c.tran_phone).Title("Telefono");
+          columns.Bound(c => c.tran_user).Title("Usuario");
+          columns.Bound(c => c.tran_password).Title("Password").Format("***");
+          columns.Command(command => { command.Edit().Text("Editar").UpdateText("Guardar").CancelText("Cancelar"); command.Destroy().Text("Eliminar"); }).Width(180);
+      })
+      .ToolBar(toolbar =>
+      {
+          toolbar.Create().Text("Nueva");
+          toolbar.Excel();
+          toolbar.Pdf();
+      })
+      .Editable(editable => editable.Mode(GridEditMode.InLine))
+      .Scrollable()
+      .DataSource(dataSource => dataSource
+          .Ajax()
+          .Model(model => model.Id(p => p.tran_id))
+          .Read(read => read.Action("TRANS_LOGISTIC_Read", "Transportes"))
+          .Create(create => create.Action("TRANS_LOGISTIC_Create", "Transportes"))
+          .Update(update => update.Action("TRANS_LOGISTIC_Update", "Transportes"))
+          .Destroy(destroy => destroy.Action("TRANS_LOGISTIC_Destroy", "Transportes"))
+      )
+                            )
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+<!-- /Row -->

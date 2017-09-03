@@ -1,0 +1,194 @@
+﻿
+
+        <!-- Title -->
+        <div class="row heading-bg">
+            <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                <h5 class="txt-dark">Panel de Control</h5>
+            </div>
+            <!-- Breadcrumb -->
+            <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+                <ol class="breadcrumb">
+                    <li><a href="index.html">Dashboard</a></li>
+                    <li><a href="#"><span>table</span></a></li>
+                    <li class="active"><span>data-table</span></li>
+                </ol>
+            </div>
+            <!-- /Breadcrumb -->
+        </div>
+        <!-- /Title -->
+        <!-- Row -->
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="panel panel-default card-view">
+                    <div class="panel-heading">
+                        <div class="pull-left">
+                            <h6 class="panel-title txt-dark">Guias Activas</h6>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="panel-wrapper collapse in">
+                        <div class="panel-body">
+                            <div class="table-wrap">
+                                <div class="table-responsive">
+                                @(Html.Kendo().Grid<WebApp.Models.vis_GUIAS>()
+                                  .Name("grid")
+                                  .Columns(columns =>
+                                  {
+                                      columns.Bound(c => c.guia_id).Title("ID");
+                                      columns.Bound(c => c.origen).Title("Origen");
+                                      columns.Bound(c => c.destino).Title("Destino");
+                                      columns.Bound(c => c.guia_code).Title("Guia");
+                                      columns.Bound(c => c.guia_date).Title("Fecha").Format("{0:yyyy-MM-dd hh:mm}");
+                                      columns.Bound(c => c.tran_name).Title("Ruta");
+                                  })
+                                  .ToolBar(toolbar =>
+                                  {
+                                      toolbar.Excel();
+                                      toolbar.Pdf();
+                                  })
+                                   .Pageable(pager => pager
+                        .Messages(messages => messages
+                        .Display("{0} a {1}. Total de: {2}")
+                        .Empty("Sin registros")))
+                          .Filterable(f => f
+                                .Messages(m => m
+                                    .Info("Mostrar registros con:")
+                                    .Filter("Filtrar")
+                                    .Clear("Limpiar")
+                                    .IsTrue("y verdadero")
+                                    .IsFalse("y falso")
+                                    .And("y")
+                                    .Or("o")
+                                )
+                                .Operators(o => o
+                                    .ForString(fs => fs
+                                        .Contains("contiene")
+                                        .DoesNotContain("no contiene")
+                                        .EndsWith("termina con")
+                                        .IsEqualTo("es igual a")
+                                        .IsNotEqualTo("no es igual a")
+                                        .StartsWith("empieza con")
+                                    )
+                                    .ForNumber(fs => fs
+                                        .IsEqualTo("es igual a")
+                                        .IsGreaterThan("es mayor a")
+                                        .IsGreaterThanOrEqualTo("es mayor o igual a")
+                                        .IsLessThan("es menor que")
+                                        .IsLessThanOrEqualTo("es menor o igual a")
+                                        .IsNotEqualTo("no es igual a")
+                                    )
+                                    .ForDate(fs => fs
+                                        .IsEqualTo("es igual a")
+                                        .IsGreaterThan("es mayor a")
+                                        .IsGreaterThanOrEqualTo("es mayor o igual a")
+                                        .IsLessThan("es menor que")
+                                        .IsLessThanOrEqualTo("es menor o igual a")
+                                        .IsNotEqualTo("no es igual a")
+                                    )
+                                )
+                            )
+                                  .Scrollable()
+                                  .DataSource(dataSource => dataSource
+                                      .Ajax()
+                                      .Read(read => read.Action("GUIA_LOGISTIC_Read", "Home"))
+                                  ).HtmlAttributes(new { style = "height: 600px" })
+                                )
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                   
+                    
+                </div>
+            </div>
+        </div>
+        <!-- /Row -->
+  <!-- Row -->
+<div class="row">
+    <div class="col-sm-12">
+        <div class="panel panel-default card-view">
+            <div class="panel-heading">
+                <div class="pull-left">
+                    <h6 class="panel-title txt-dark">Guias Terminadas</h6>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="panel-wrapper collapse in">
+                <div class="panel-body">
+                    <div class="table-wrap">
+                        <div class="table-responsive">
+                            @(Html.Kendo().Grid<WebApp.Models.vis_GUIAS>()
+                                  .Name("gridend")
+                                  .Columns(columns =>
+                                  {
+                                      columns.Bound(c => c.guia_id).Title("ID");
+                                      columns.Bound(c => c.origen).Title("Origen");
+                                      columns.Bound(c => c.destino).Title("Destino");
+                                      columns.Bound(c => c.guia_code).Title("Guia");
+                                      columns.Bound(c => c.guia_date).Title("Fecha").Format("{0:yyyy-MM-dd}");
+                                      columns.Bound(c => c.tran_name).Title("Ruta");
+                                  })
+                                  .ToolBar(toolbar =>
+                                  {
+                                      toolbar.Excel();
+                                      toolbar.Pdf();
+                                  })
+                                  .Pageable(pager => pager
+                        .Messages(messages => messages
+                        .Display("{0} a {1}. Total de: {2}")
+                        .Empty("Sin registros")))
+                          .Filterable(f => f
+                                .Messages(m => m
+                                    .Info("Mostrar registros con:")
+                                    .Filter("Filtrar")
+                                    .Clear("Limpiar")
+                                    .IsTrue("y verdadero")
+                                    .IsFalse("y falso")
+                                    .And("y")
+                                    .Or("o")
+                                )
+                                .Operators(o => o
+                                    .ForString(fs => fs
+                                        .Contains("contiene")
+                                        .DoesNotContain("no contiene")
+                                        .EndsWith("termina con")
+                                        .IsEqualTo("es igual a")
+                                        .IsNotEqualTo("no es igual a")
+                                        .StartsWith("empieza con")
+                                    )
+                                    .ForNumber(fs => fs
+                                        .IsEqualTo("es igual a")
+                                        .IsGreaterThan("es mayor a")
+                                        .IsGreaterThanOrEqualTo("es mayor o igual a")
+                                        .IsLessThan("es menor que")
+                                        .IsLessThanOrEqualTo("es menor o igual a")
+                                        .IsNotEqualTo("no es igual a")
+                                    )
+                                    .ForDate(fs => fs
+                                        .IsEqualTo("es igual a")
+                                        .IsGreaterThan("es mayor a")
+                                        .IsGreaterThanOrEqualTo("es mayor o igual a")
+                                        .IsLessThan("es menor que")
+                                        .IsLessThanOrEqualTo("es menor o igual a")
+                                        .IsNotEqualTo("no es igual a")
+                                    )
+                                )
+                            )
+                                  .Scrollable()
+                                  .DataSource(dataSource => dataSource
+                                      .Ajax()
+                                      .Read(read => read.Action("GUIA_LOGISTIC_End_Read", "Home"))
+                                  ).HtmlAttributes(new { style = "height: 600px" })
+                            )
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+<!-- /Row -->

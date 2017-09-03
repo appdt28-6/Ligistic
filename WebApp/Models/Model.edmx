@@ -1,0 +1,402 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="AppDTModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="DESTINO_LOGISTIC">
+          <Key>
+            <PropertyRef Name="dest_id" />
+          </Key>
+          <Property Name="dest_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="dest_name" Type="varchar" MaxLength="50" />
+          <Property Name="dest_addres" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="DESTINO_LOGISTIC_COSTO">
+          <Key>
+            <PropertyRef Name="cost_id" />
+            <PropertyRef Name="dest_ini" />
+            <PropertyRef Name="dest_end" />
+          </Key>
+          <Property Name="cost_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="dest_ini" Type="int" Nullable="false" />
+          <Property Name="dest_end" Type="int" Nullable="false" />
+          <Property Name="dest_cost" Type="float" />
+          <Property Name="dest_cost_redondo" Type="float" />
+        </EntityType>
+        <EntityType Name="GUIA_LOGISTIC">
+          <Key>
+            <PropertyRef Name="guia_id" />
+          </Key>
+          <Property Name="guia_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="guia_origen" Type="int" />
+          <Property Name="guia_destino" Type="int" />
+          <Property Name="guia_code" Type="varchar" MaxLength="15" />
+          <Property Name="guia_date" Type="datetime" Nullable="false" />
+          <Property Name="tras_id" Type="int" />
+          <Property Name="guia_status" Type="int" />
+          <Property Name="guia_lat" Type="varchar" MaxLength="50" />
+          <Property Name="guia_lon" Type="varchar" MaxLength="50" />
+          <Property Name="guia_latend" Type="varchar" MaxLength="50" />
+          <Property Name="guia_lonend" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="TRANS_LOGISTIC">
+          <Key>
+            <PropertyRef Name="tran_id" />
+          </Key>
+          <Property Name="tran_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="tran_name" Type="varchar" MaxLength="50" />
+          <Property Name="tran_phone" Type="varchar" MaxLength="15" />
+          <Property Name="tran_user" Type="varchar" MaxLength="15" />
+          <Property Name="tran_password" Type="varchar" MaxLength="15" />
+        </EntityType>
+        <EntityType Name="USUARIOS_LOGISTIC">
+          <Key>
+            <PropertyRef Name="user_id" />
+            <PropertyRef Name="comp_id" />
+          </Key>
+          <Property Name="user_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="comp_id" Type="int" Nullable="false" />
+          <Property Name="user_name" Type="varchar" MaxLength="50" />
+          <Property Name="user_phone" Type="varchar" MaxLength="50" />
+          <Property Name="user_mail" Type="varchar" MaxLength="50" />
+          <Property Name="user_user" Type="varchar" MaxLength="15" />
+          <Property Name="user_password" Type="varchar" MaxLength="15" />
+          <Property Name="user_role" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'DB_A09B1F_bshop.dbo.vis_GUIAS' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vis_GUIAS">
+          <Key>
+            <PropertyRef Name="guia_id" />
+            <PropertyRef Name="guia_date" />
+            <PropertyRef Name="tran_id" />
+          </Key>
+          <Property Name="guia_id" Type="int" Nullable="false" />
+          <Property Name="guia_origen" Type="int" />
+          <Property Name="origen" Type="varchar" MaxLength="50" />
+          <Property Name="guia_destino" Type="int" />
+          <Property Name="destino" Type="varchar" MaxLength="50" />
+          <Property Name="guia_code" Type="varchar" MaxLength="15" />
+          <Property Name="guia_date" Type="datetime" Nullable="false" />
+          <Property Name="tran_id" Type="int" Nullable="false" />
+          <Property Name="tran_name" Type="varchar" MaxLength="50" />
+          <Property Name="guia_status" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'DB_A09B1F_bshop.dbo.vis_Tarifas' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vis_Tarifas">
+          <Key>
+            <PropertyRef Name="cost_id" />
+            <PropertyRef Name="dest_ini" />
+            <PropertyRef Name="dest_end" />
+          </Key>
+          <Property Name="cost_id" Type="int" Nullable="false" />
+          <Property Name="dest_ini" Type="int" Nullable="false" />
+          <Property Name="origen" Type="varchar" MaxLength="50" />
+          <Property Name="dest_end" Type="int" Nullable="false" />
+          <Property Name="destino" Type="varchar" MaxLength="50" />
+          <Property Name="dest_cost" Type="float" />
+          <Property Name="dest_cost_redondo" Type="float" />
+        </EntityType>
+        <Function Name="ps_GUIAS_RESUMEN" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Ini" Type="varchar" Mode="In" />
+          <Parameter Name="End" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_SET_HORARIO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="barbid" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="AppDTModelStoreContainer">
+          <EntitySet Name="DESTINO_LOGISTIC" EntityType="Self.DESTINO_LOGISTIC" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DESTINO_LOGISTIC_COSTO" EntityType="Self.DESTINO_LOGISTIC_COSTO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GUIA_LOGISTIC" EntityType="Self.GUIA_LOGISTIC" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TRANS_LOGISTIC" EntityType="Self.TRANS_LOGISTIC" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="USUARIOS_LOGISTIC" EntityType="Self.USUARIOS_LOGISTIC" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="vis_GUIAS" EntityType="Self.vis_GUIAS" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vis_GUIAS].[guia_id] AS [guia_id], 
+    [vis_GUIAS].[guia_origen] AS [guia_origen], 
+    [vis_GUIAS].[origen] AS [origen], 
+    [vis_GUIAS].[guia_destino] AS [guia_destino], 
+    [vis_GUIAS].[destino] AS [destino], 
+    [vis_GUIAS].[guia_code] AS [guia_code], 
+    [vis_GUIAS].[guia_date] AS [guia_date], 
+    [vis_GUIAS].[tran_id] AS [tran_id], 
+    [vis_GUIAS].[tran_name] AS [tran_name], 
+    [vis_GUIAS].[guia_status] AS [guia_status]
+    FROM [dbo].[vis_GUIAS] AS [vis_GUIAS]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vis_Tarifas" EntityType="Self.vis_Tarifas" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vis_Tarifas].[cost_id] AS [cost_id], 
+    [vis_Tarifas].[dest_ini] AS [dest_ini], 
+    [vis_Tarifas].[origen] AS [origen], 
+    [vis_Tarifas].[dest_end] AS [dest_end], 
+    [vis_Tarifas].[destino] AS [destino], 
+    [vis_Tarifas].[dest_cost] AS [dest_cost], 
+    [vis_Tarifas].[dest_cost_redondo] AS [dest_cost_redondo]
+    FROM [dbo].[vis_Tarifas] AS [vis_Tarifas]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="AppDTModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="AppDTEntities" annotation:LazyLoadingEnabled="true">
+          <FunctionImport Name="sp_SET_HORARIO">
+          <Parameter Name="barbid" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="DESTINO_LOGISTIC" EntityType="AppDTModel.DESTINO_LOGISTIC" />
+          <EntitySet Name="TRANS_LOGISTIC" EntityType="AppDTModel.TRANS_LOGISTIC" />
+          <EntitySet Name="GUIA_LOGISTIC" EntityType="AppDTModel.GUIA_LOGISTIC" />
+          <EntitySet Name="vis_GUIAS" EntityType="AppDTModel.vis_GUIAS" />
+          <EntitySet Name="DESTINO_LOGISTIC_COSTO" EntityType="AppDTModel.DESTINO_LOGISTIC_COSTO" />
+          <EntitySet Name="vis_Tarifas" EntityType="AppDTModel.vis_Tarifas" />
+          <EntitySet Name="USUARIOS_LOGISTIC" EntityType="AppDTModel.USUARIOS_LOGISTIC" />
+          <FunctionImport Name="ps_GUIAS_RESUMEN" ReturnType="Collection(AppDTModel.ps_GUIAS_RESUMEN_Result)">
+            <Parameter Name="Ini" Mode="In" Type="String" />
+            <Parameter Name="End" Mode="In" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
+        <EntityType Name="DESTINO_LOGISTIC">
+          <Key>
+            <PropertyRef Name="dest_id" />
+          </Key>
+          <Property Name="dest_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="dest_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="dest_addres" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="TRANS_LOGISTIC">
+          <Key>
+            <PropertyRef Name="tran_id" />
+          </Key>
+          <Property Name="tran_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tran_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="tran_phone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="tran_user" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="tran_password" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="GUIA_LOGISTIC">
+          <Key>
+            <PropertyRef Name="guia_id" />
+          </Key>
+          <Property Name="guia_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="guia_origen" Type="Int32" />
+          <Property Name="guia_destino" Type="Int32" />
+          <Property Name="guia_code" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="guia_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="tras_id" Type="Int32" />
+          <Property Name="guia_status" Type="Int32" />
+          <Property Name="guia_lat" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="guia_lon" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="guia_latend" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="guia_lonend" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="vis_GUIAS">
+          <Key>
+            <PropertyRef Name="guia_id" />
+            <PropertyRef Name="guia_date" />
+            <PropertyRef Name="tran_id" />
+          </Key>
+          <Property Name="guia_id" Type="Int32" Nullable="false" />
+          <Property Name="guia_origen" Type="Int32" />
+          <Property Name="origen" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="guia_destino" Type="Int32" />
+          <Property Name="destino" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="guia_code" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="guia_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="tran_id" Type="Int32" Nullable="false" />
+          <Property Name="tran_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="guia_status" Type="Int32" />
+        </EntityType>
+        <EntityType Name="DESTINO_LOGISTIC_COSTO">
+          <Key>
+            <PropertyRef Name="cost_id" />
+            <PropertyRef Name="dest_ini" />
+            <PropertyRef Name="dest_end" />
+          </Key>
+          <Property Name="cost_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="dest_ini" Type="Int32" Nullable="false" />
+          <Property Name="dest_end" Type="Int32" Nullable="false" />
+          <Property Name="dest_cost" Type="Double" />
+          <Property Name="dest_cost_redondo" Type="Double" />
+        </EntityType>
+        <EntityType Name="vis_Tarifas">
+          <Key>
+            <PropertyRef Name="cost_id" />
+            <PropertyRef Name="dest_ini" />
+            <PropertyRef Name="dest_end" />
+          </Key>
+          <Property Name="cost_id" Type="Int32" Nullable="false" />
+          <Property Name="dest_ini" Type="Int32" Nullable="false" />
+          <Property Name="origen" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="dest_end" Type="Int32" Nullable="false" />
+          <Property Name="destino" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="dest_cost" Type="Double" />
+          <Property Name="dest_cost_redondo" Type="Double" />
+        </EntityType>
+        <EntityType Name="USUARIOS_LOGISTIC">
+          <Key>
+            <PropertyRef Name="user_id" />
+            <PropertyRef Name="comp_id" />
+          </Key>
+          <Property Name="user_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="comp_id" Type="Int32" Nullable="false" />
+          <Property Name="user_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="user_phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="user_mail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="user_user" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="user_password" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="user_role" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <ComplexType Name="ps_GUIAS_RESUMEN_Result">
+          <Property Type="Int32" Name="guia_id" Nullable="false" />
+          <Property Type="Int32" Name="guia_origen" Nullable="true" />
+          <Property Type="String" Name="origen" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="guia_destino" Nullable="true" />
+          <Property Type="String" Name="destino" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="guia_code" Nullable="true" MaxLength="15" />
+          <Property Type="DateTime" Name="guia_date" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="tran_id" Nullable="false" />
+          <Property Type="String" Name="tran_name" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="guia_status" Nullable="true" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="AppDTModelStoreContainer" CdmEntityContainer="AppDTEntities">
+          <FunctionImportMapping FunctionImportName="sp_SET_HORARIO" FunctionName="AppDTModel.Store.sp_SET_HORARIO" />
+          <EntitySetMapping Name="DESTINO_LOGISTIC">
+            <EntityTypeMapping TypeName="AppDTModel.DESTINO_LOGISTIC">
+              <MappingFragment StoreEntitySet="DESTINO_LOGISTIC">
+                <ScalarProperty Name="dest_addres" ColumnName="dest_addres" />
+                <ScalarProperty Name="dest_name" ColumnName="dest_name" />
+                <ScalarProperty Name="dest_id" ColumnName="dest_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TRANS_LOGISTIC">
+            <EntityTypeMapping TypeName="AppDTModel.TRANS_LOGISTIC">
+              <MappingFragment StoreEntitySet="TRANS_LOGISTIC">
+                <ScalarProperty Name="tran_password" ColumnName="tran_password" />
+                <ScalarProperty Name="tran_user" ColumnName="tran_user" />
+                <ScalarProperty Name="tran_phone" ColumnName="tran_phone" />
+                <ScalarProperty Name="tran_name" ColumnName="tran_name" />
+                <ScalarProperty Name="tran_id" ColumnName="tran_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GUIA_LOGISTIC">
+            <EntityTypeMapping TypeName="AppDTModel.GUIA_LOGISTIC">
+              <MappingFragment StoreEntitySet="GUIA_LOGISTIC">
+                <ScalarProperty Name="guia_lonend" ColumnName="guia_lonend" />
+                <ScalarProperty Name="guia_latend" ColumnName="guia_latend" />
+                <ScalarProperty Name="guia_lon" ColumnName="guia_lon" />
+                <ScalarProperty Name="guia_lat" ColumnName="guia_lat" />
+                <ScalarProperty Name="guia_status" ColumnName="guia_status" />
+                <ScalarProperty Name="tras_id" ColumnName="tras_id" />
+                <ScalarProperty Name="guia_date" ColumnName="guia_date" />
+                <ScalarProperty Name="guia_code" ColumnName="guia_code" />
+                <ScalarProperty Name="guia_destino" ColumnName="guia_destino" />
+                <ScalarProperty Name="guia_origen" ColumnName="guia_origen" />
+                <ScalarProperty Name="guia_id" ColumnName="guia_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vis_GUIAS">
+            <EntityTypeMapping TypeName="AppDTModel.vis_GUIAS">
+              <MappingFragment StoreEntitySet="vis_GUIAS">
+                <ScalarProperty Name="guia_status" ColumnName="guia_status" />
+                <ScalarProperty Name="tran_name" ColumnName="tran_name" />
+                <ScalarProperty Name="tran_id" ColumnName="tran_id" />
+                <ScalarProperty Name="guia_date" ColumnName="guia_date" />
+                <ScalarProperty Name="guia_code" ColumnName="guia_code" />
+                <ScalarProperty Name="destino" ColumnName="destino" />
+                <ScalarProperty Name="guia_destino" ColumnName="guia_destino" />
+                <ScalarProperty Name="origen" ColumnName="origen" />
+                <ScalarProperty Name="guia_origen" ColumnName="guia_origen" />
+                <ScalarProperty Name="guia_id" ColumnName="guia_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DESTINO_LOGISTIC_COSTO">
+            <EntityTypeMapping TypeName="AppDTModel.DESTINO_LOGISTIC_COSTO">
+              <MappingFragment StoreEntitySet="DESTINO_LOGISTIC_COSTO">
+                <ScalarProperty Name="dest_cost_redondo" ColumnName="dest_cost_redondo" />
+                <ScalarProperty Name="dest_cost" ColumnName="dest_cost" />
+                <ScalarProperty Name="dest_end" ColumnName="dest_end" />
+                <ScalarProperty Name="dest_ini" ColumnName="dest_ini" />
+                <ScalarProperty Name="cost_id" ColumnName="cost_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vis_Tarifas">
+            <EntityTypeMapping TypeName="AppDTModel.vis_Tarifas">
+              <MappingFragment StoreEntitySet="vis_Tarifas">
+                <ScalarProperty Name="dest_cost_redondo" ColumnName="dest_cost_redondo" />
+                <ScalarProperty Name="dest_cost" ColumnName="dest_cost" />
+                <ScalarProperty Name="destino" ColumnName="destino" />
+                <ScalarProperty Name="dest_end" ColumnName="dest_end" />
+                <ScalarProperty Name="origen" ColumnName="origen" />
+                <ScalarProperty Name="dest_ini" ColumnName="dest_ini" />
+                <ScalarProperty Name="cost_id" ColumnName="cost_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="USUARIOS_LOGISTIC">
+            <EntityTypeMapping TypeName="AppDTModel.USUARIOS_LOGISTIC">
+              <MappingFragment StoreEntitySet="USUARIOS_LOGISTIC">
+                <ScalarProperty Name="user_role" ColumnName="user_role" />
+                <ScalarProperty Name="user_password" ColumnName="user_password" />
+                <ScalarProperty Name="user_user" ColumnName="user_user" />
+                <ScalarProperty Name="user_mail" ColumnName="user_mail" />
+                <ScalarProperty Name="user_phone" ColumnName="user_phone" />
+                <ScalarProperty Name="user_name" ColumnName="user_name" />
+                <ScalarProperty Name="comp_id" ColumnName="comp_id" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="ps_GUIAS_RESUMEN" FunctionName="AppDTModel.Store.ps_GUIAS_RESUMEN">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AppDTModel.ps_GUIAS_RESUMEN_Result">
+                <ScalarProperty Name="guia_id" ColumnName="guia_id" />
+                <ScalarProperty Name="guia_origen" ColumnName="guia_origen" />
+                <ScalarProperty Name="origen" ColumnName="origen" />
+                <ScalarProperty Name="guia_destino" ColumnName="guia_destino" />
+                <ScalarProperty Name="destino" ColumnName="destino" />
+                <ScalarProperty Name="guia_code" ColumnName="guia_code" />
+                <ScalarProperty Name="guia_date" ColumnName="guia_date" />
+                <ScalarProperty Name="tran_id" ColumnName="tran_id" />
+                <ScalarProperty Name="tran_name" ColumnName="tran_name" />
+                <ScalarProperty Name="guia_status" ColumnName="guia_status" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

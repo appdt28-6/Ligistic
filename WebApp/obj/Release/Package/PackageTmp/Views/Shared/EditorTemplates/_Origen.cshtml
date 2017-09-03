@@ -1,0 +1,13 @@
+﻿@(Html.Kendo().DropDownList()
+          .Name("dest_ini")
+          .DataTextField("dest_name")
+          .DataValueField("dest_id")
+          .DataSource(source =>
+          {
+              source.Read(read =>
+              {
+                  read.Action("Get_Origen", "Tarifas");
+              });
+          })
+          .HtmlAttributes(new { style = "width: 100%" })
+)

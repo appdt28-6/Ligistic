@@ -1,0 +1,107 @@
+﻿@model WebApp.Models.UserModel
+
+@{
+    Layout = "";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+
+    <!-- vector map CSS -->
+    <link href="~/Content/layout/vendors/bower_components/jasny-bootstrap/dist/css/jasny-bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <!-- Custom CSS -->
+    <link href="~/Content/layout/dist/css/style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <!--Preloader-->
+    <div class="preloader-it">
+        <div class="la-anim-1"></div>
+    </div>
+    <!--/Preloader-->
+
+    <div class="wrapper pa-0">
+        <header class="sp-header">
+            <div class="sp-logo-wrap pull-left">
+                <a href="index.html">
+                    <img class="brand-img mr-10" src="~/Content/layout/dist/img/logo.png" alt="brand" />
+                    <span class="brand-text">Logistic</span>
+                </a>
+            </div>
+            <div class="form-group mb-0 pull-right">
+                <span class="inline-block pr-10">Don't have an account?</span>
+                <a class="inline-block btn btn-info btn-rounded btn-outline" href="signup.html">Sign Up</a>
+            </div>
+            <div class="clearfix"></div>
+        </header>
+
+        <!-- Main Content -->
+        <div class="page-wrapper pa-0 ma-0 auth-page">
+            <div class="container-fluid">
+                <!-- Row -->
+                <div class="table-struct full-width full-height">
+                    <div class="table-cell vertical-align-middle auth-form-wrap">
+                        <div class="auth-form  ml-auto mr-auto no-float">
+                            <div class="row">
+                                <div class="col-sm-12 col-xs-12">
+                                    <div class="mb-30">
+                                        <h3 class="text-center txt-dark mb-10">Logistica Cortes</h3>
+                                        <h6 class="text-center nonecase-font txt-grey">Ingresa tus datos</h6>
+                                    </div>
+                                    <div class="form-wrap">
+                                       
+                                        @using (@Html.BeginForm("Login", "Home", FormMethod.Post))
+                                        {
+                                            @Html.AntiForgeryToken()
+                                            <div class="form-group">
+                                                <label class="control-label mb-10" for="exampleInputEmail_2">Usuario</label>
+                                                
+                                                @Html.TextBoxFor(a => a.UserName, new { placeholder = "Usuario", @class = "form-control" })
+                                                @Html.ValidationMessageFor(a => a.UserName)
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="pull-left control-label mb-10" for="exampleInputpwd_2">Password</label>
+                                                <a class="capitalize-font txt-primary block mb-10 pull-right font-12" href="forgot-password.html">Olvido de Contraseña ?</a>
+                                                <div class="clearfix"></div>
+                                                @Html.PasswordFor(a => a.Password, new { placeholder = "Password", @class = "form-control" })
+                                                @Html.ValidationMessageFor(a => a.Password)
+                                            </div>
+                                            <div class="form-group text-center">
+                                                <p style="font:medium">@ViewData["Error"]</p>
+                                            <input type="submit" class="btn btn-info btn-rounded" value="Login">
+                                            </div>
+                                        }
+                                       
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /Row -->
+            </div>
+
+        </div>
+        <!-- /Main Content -->
+
+    </div>
+    <!-- /#wrapper -->
+    <!-- JavaScript -->
+    <!-- jQuery -->
+    <script src="~/Content/layout/vendors/bower_components/jquery/dist/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="~/Content/layout/vendors/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="~/Content/layout/vendors/bower_components/jasny-bootstrap/dist/js/jasny-bootstrap.min.js"></script>
+
+    <!-- Slimscroll JavaScript -->
+    <script src="~/Content/layout/dist/js/jquery.slimscroll.js"></script>
+
+    <!-- Init JavaScript -->
+    <script src="~/Content/layout/dist/js/init.js"></script>
+</body>
+</html>

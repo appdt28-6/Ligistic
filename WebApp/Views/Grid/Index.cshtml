@@ -1,0 +1,27 @@
+﻿
+@(Html.Kendo().Grid<WebApp.Models.GUIA_LOGISTIC>()
+      .Name("grid")
+      .Columns(columns =>
+      {
+        columns.Bound(c => c.guia_origen);
+        columns.Bound(c => c.guia_destino);
+        columns.Bound(c => c.guia_code);
+        columns.Bound(c => c.guia_date);
+        columns.Bound(c => c.tras_id);
+        columns.Bound(c => c.guia_status);
+        columns.Bound(c => c.guia_lat);
+        columns.Bound(c => c.guia_lon);
+        columns.Bound(c => c.guia_latend);
+        columns.Bound(c => c.guia_lonend);
+      })
+      .ToolBar(toolbar => {
+            toolbar.Excel();
+            toolbar.Pdf();
+      })
+      .Pageable()
+      .Scrollable()
+      .DataSource(dataSource => dataSource
+          .Ajax()
+          .Read(read => read.Action("GUIA_LOGISTIC_Read", "Grid"))
+      )
+)

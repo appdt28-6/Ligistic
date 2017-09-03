@@ -1,0 +1,24 @@
+﻿
+@(Html.Kendo().Grid<WebApp.Models.vis_GUIAS>()
+      .Name("grid")
+      .Columns(columns =>
+      {
+          columns.Bound(c => c.guia_id).Hidden();
+          columns.Bound(c => c.origen).Title("Origen");
+          columns.Bound(c => c.destino).Title("Destino");
+          columns.Bound(c => c.guia_code).Title("Guia");
+          columns.Bound(c => c.guia_date).Title("Fecha").Format("{0:yyyy-MM-dd}");
+          columns.Bound(c => c.tran_name).Title("Ruta");
+      })
+      .ToolBar(toolbar => {
+          toolbar.Excel();
+          toolbar.Pdf();
+      })
+      .Pageable()
+      .Filterable()
+      .Scrollable()
+      .DataSource(dataSource => dataSource
+          .Ajax()
+          .Read(read => read.Action("GUIA_LOGISTIC_Read", "Guias"))
+      ).HtmlAttributes(new { style = "height: 480px" })
+)

@@ -1,0 +1,153 @@
+﻿<!-- Title -->
+<div class="row heading-bg">
+    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+        <h5 class="txt-dark">Panel de Control</h5>
+    </div>
+    <!-- Breadcrumb -->
+    <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+        <ol class="breadcrumb">
+            <li><a href="index.html">Dashboard</a></li>
+            <li><a href="#"><span>table</span></a></li>
+            <li class="active"><span>data-table</span></li>
+        </ol>
+    </div>
+    <!-- /Breadcrumb -->
+</div>
+<!-- /Title -->
+<!-- Row -->
+<div class="row">
+    <div class="col-sm-12">
+        <div class="panel panel-default card-view">
+            <div class="panel-heading">
+                <div class="pull-left">
+                    <h6 class="panel-title txt-dark">Resumen Guias</h6>
+                </div>
+                <br />
+                <div>
+                    Inicio: @(Html.Kendo().DatePicker()
+          .Name("datepicker")
+         .Value(DateTime.Today)
+         .Format("yyyy-MM-dd")
+          .HtmlAttributes(new { style = "width: 30%" })
+                    )
+                    Fin: @(Html.Kendo().DatePicker()
+          .Name("datepicker2")
+          .Value(DateTime.Today)
+          .Format("yyyy-MM-dd")
+          .HtmlAttributes(new { style = "width: 30%"})
+                    )
+                    <input type="button" value="Buscar" id="Src" />
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="panel-wrapper collapse in">
+                <div class="panel-body">
+                 <div id="partial">
+                     @*Html.Partial("_Resumen")*@
+                    @(Html.Kendo().Grid<WebApp.Models.ps_GUIAS_RESUMEN_Result>()
+                                  .Name("grid")
+                                 .AutoBind(false)
+                                  .Columns(columns =>
+                                  {
+                                      columns.Bound(c => c.guia_id).Title("ID").Width("80px");
+                                      columns.Bound(c => c.origen).Title("Origen");
+                                      columns.Bound(c => c.destino).Title("Destino");
+                                      columns.Bound(c => c.guia_code).Title("Guia");
+                                      columns.Bound(c => c.guia_date).Title("Fecha").Format("{0:yyyy-MM-dd}");
+                                      columns.Bound(c => c.tran_name).Title("Ruta");
+                                  })
+                                  .ToolBar(toolbar =>
+                                  {
+                                      toolbar.Excel();
+                                      toolbar.Pdf();
+                                  })
+                                   
+                          .Filterable(f => f
+                                .Messages(m => m
+                                    .Info("Mostrar registros con:")
+                                    .Filter("Filtrar")
+                                    .Clear("Limpiar")
+                                    .IsTrue("y verdadero")
+                                    .IsFalse("y falso")
+                                    .And("y")
+                                    .Or("o")
+                                )
+                                .Operators(o => o
+                                    .ForString(fs => fs
+                                        .Contains("contiene")
+                                        .DoesNotContain("no contiene")
+                                        .EndsWith("termina con")
+                                        .IsEqualTo("es igual a")
+                                        .IsNotEqualTo("no es igual a")
+                                        .StartsWith("empieza con")
+                                    )
+                                    .ForNumber(fs => fs
+                                        .IsEqualTo("es igual a")
+                                        .IsGreaterThan("es mayor a")
+                                        .IsGreaterThanOrEqualTo("es mayor o igual a")
+                                        .IsLessThan("es menor que")
+                                        .IsLessThanOrEqualTo("es menor o igual a")
+                                        .IsNotEqualTo("no es igual a")
+                                    )
+                                    .ForDate(fs => fs
+                                        .IsEqualTo("es igual a")
+                                        .IsGreaterThan("es mayor a")
+                                        .IsGreaterThanOrEqualTo("es mayor o igual a")
+                                        .IsLessThan("es menor que")
+                                        .IsLessThanOrEqualTo("es menor o igual a")
+                                        .IsNotEqualTo("no es igual a")
+                                    )
+                                )
+                            )
+                                  .Scrollable()
+                                  .DataSource(dataSource => dataSource
+                                      .Ajax()
+                                      .Read(read => read.Action("GUIA_LOGISTIC_Read", "ResumenGuias").Data("additionalData"))
+                                  ).HtmlAttributes(new { style = "height: 600px" })
+                    )
+                    <script>
+
+                        function additionalData(e) {
+                            var dateini = document.getElementById("datepicker").value;
+
+                            var dateend = document.getElementById("datepicker2").value;
+
+                            return { Dateini: dateini, Dataend: dateend }
+                           }
+
+                    </script>
+                 </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+<!-- /Row -->
+<script>
+    $('#Src').click(function () {
+
+        var grid = $("#grid").data("kendoGrid");
+        grid.dataSource.read();
+
+        @*var dateini = document.getElementById("datepicker").value;
+
+        var dateend = document.getElementById("datepicker2").value;
+       
+        $.ajax({
+            type: "POST",
+            data: { Dateini: dateini, Dataend: dateend },
+            url:'@Url.Action("GUIA_LOGISTIC_Read", "ResumenGuias")',
+            success: function (data) {
+                $('#partial').html(data);
+            },
+            error: function (response) {
+                alert("error!");  // 
+            }
+
+        });*@
+
+    });
+
+</script>

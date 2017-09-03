@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="AppDTModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="AppDTEntities" annotation:LazyLoadingEnabled="true">
+    <FunctionImport Name="sp_SET_HORARIO">
+      <Parameter Name="barbid" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <EntitySet Name="DESTINO_LOGISTIC" EntityType="AppDTModel.DESTINO_LOGISTIC" />
+    <EntitySet Name="TRANS_LOGISTIC" EntityType="AppDTModel.TRANS_LOGISTIC" />
+    <EntitySet Name="GUIA_LOGISTIC" EntityType="AppDTModel.GUIA_LOGISTIC" />
+    <EntitySet Name="vis_GUIAS" EntityType="AppDTModel.vis_GUIAS" />
+    <EntitySet Name="DESTINO_LOGISTIC_COSTO" EntityType="AppDTModel.DESTINO_LOGISTIC_COSTO" />
+    <EntitySet Name="vis_Tarifas" EntityType="AppDTModel.vis_Tarifas" />
+    <EntitySet Name="USUARIOS_LOGISTIC" EntityType="AppDTModel.USUARIOS_LOGISTIC" />
+    <FunctionImport Name="ps_GUIAS_RESUMEN" ReturnType="Collection(AppDTModel.ps_GUIAS_RESUMEN_Result)">
+      <Parameter Name="Ini" Mode="In" Type="String" />
+      <Parameter Name="End" Mode="In" Type="String" />
+    </FunctionImport>
+  </EntityContainer>
+  <EntityType Name="DESTINO_LOGISTIC">
+    <Key>
+      <PropertyRef Name="dest_id" />
+    </Key>
+    <Property Name="dest_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="dest_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="dest_addres" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="TRANS_LOGISTIC">
+    <Key>
+      <PropertyRef Name="tran_id" />
+    </Key>
+    <Property Name="tran_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="tran_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="tran_phone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="tran_user" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="tran_password" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="GUIA_LOGISTIC">
+    <Key>
+      <PropertyRef Name="guia_id" />
+    </Key>
+    <Property Name="guia_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="guia_origen" Type="Int32" />
+    <Property Name="guia_destino" Type="Int32" />
+    <Property Name="guia_code" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="guia_date" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="tras_id" Type="Int32" />
+    <Property Name="guia_status" Type="Int32" />
+    <Property Name="guia_lat" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="guia_lon" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="guia_latend" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="guia_lonend" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="vis_GUIAS">
+    <Key>
+      <PropertyRef Name="guia_id" />
+      <PropertyRef Name="guia_date" />
+      <PropertyRef Name="tran_id" />
+    </Key>
+    <Property Name="guia_id" Type="Int32" Nullable="false" />
+    <Property Name="guia_origen" Type="Int32" />
+    <Property Name="origen" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="guia_destino" Type="Int32" />
+    <Property Name="destino" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="guia_code" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="guia_date" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="tran_id" Type="Int32" Nullable="false" />
+    <Property Name="tran_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="guia_status" Type="Int32" />
+  </EntityType>
+  <EntityType Name="DESTINO_LOGISTIC_COSTO">
+    <Key>
+      <PropertyRef Name="cost_id" />
+      <PropertyRef Name="dest_ini" />
+      <PropertyRef Name="dest_end" />
+    </Key>
+    <Property Name="cost_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="dest_ini" Type="Int32" Nullable="false" />
+    <Property Name="dest_end" Type="Int32" Nullable="false" />
+    <Property Name="dest_cost" Type="Double" />
+    <Property Name="dest_cost_redondo" Type="Double" />
+  </EntityType>
+  <EntityType Name="vis_Tarifas">
+    <Key>
+      <PropertyRef Name="cost_id" />
+      <PropertyRef Name="dest_ini" />
+      <PropertyRef Name="dest_end" />
+    </Key>
+    <Property Name="cost_id" Type="Int32" Nullable="false" />
+    <Property Name="dest_ini" Type="Int32" Nullable="false" />
+    <Property Name="origen" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="dest_end" Type="Int32" Nullable="false" />
+    <Property Name="destino" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="dest_cost" Type="Double" />
+    <Property Name="dest_cost_redondo" Type="Double" />
+  </EntityType>
+  <EntityType Name="USUARIOS_LOGISTIC">
+    <Key>
+      <PropertyRef Name="user_id" />
+      <PropertyRef Name="comp_id" />
+    </Key>
+    <Property Name="user_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="comp_id" Type="Int32" Nullable="false" />
+    <Property Name="user_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="user_phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="user_mail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="user_user" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="user_password" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="user_role" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <ComplexType Name="ps_GUIAS_RESUMEN_Result">
+    <Property Type="Int32" Name="guia_id" Nullable="false" />
+    <Property Type="Int32" Name="guia_origen" Nullable="true" />
+    <Property Type="String" Name="origen" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="guia_destino" Nullable="true" />
+    <Property Type="String" Name="destino" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="guia_code" Nullable="true" MaxLength="15" />
+    <Property Type="DateTime" Name="guia_date" Nullable="false" Precision="23" />
+    <Property Type="Int32" Name="tran_id" Nullable="false" />
+    <Property Type="String" Name="tran_name" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="guia_status" Nullable="true" />
+  </ComplexType>
+</Schema>

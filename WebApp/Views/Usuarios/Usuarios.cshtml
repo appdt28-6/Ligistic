@@ -1,0 +1,69 @@
+﻿ <!-- Title -->
+<div class="row heading-bg">
+    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+        <h5 class="txt-dark">Panel de Control</h5>
+    </div>
+    <!-- Breadcrumb -->
+    <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+        <ol class="breadcrumb">
+            <li><a href="index.html">Dashboard</a></li>
+            <li><a href="#"><span>table</span></a></li>
+            <li class="active"><span>data-table</span></li>
+        </ol>
+    </div>
+    <!-- /Breadcrumb -->
+</div>
+<!-- /Title -->
+<!-- Row -->
+<div class="row">
+    <div class="col-sm-12">
+        <div class="panel panel-default card-view">
+            <div class="panel-heading">
+                <div class="pull-left">
+                    <h6 class="panel-title txt-dark">Guias Activas</h6>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="panel-wrapper collapse in">
+                <div class="panel-body">
+                    <div class="table-wrap">
+                        <div class="table-responsive">
+                            @(Html.Kendo().Grid<WebApp.Models.USUARIOS>()
+      .Name("grid")
+      .Columns(columns =>
+      {
+          columns.Bound(c => c.user_name);
+          columns.Bound(c => c.user_phone);
+          columns.Bound(c => c.user_mail);
+          columns.Bound(c => c.user_user);
+          columns.Bound(c => c.user_password);
+          columns.Bound(c => c.user_role);
+          columns.Command(command => { command.Edit(); command.Destroy(); }).Width(180);
+      })
+      .ToolBar(toolbar =>
+      {
+          toolbar.Create();
+          toolbar.Excel();
+          toolbar.Pdf();
+      })
+      .Editable(editable => editable.Mode(GridEditMode.InLine))
+      .Scrollable()
+      .DataSource(dataSource => dataSource
+          .Ajax()
+          .Model(model => model.Id(p => p.user_id))
+          .Read(read => read.Action("USUARIOS_Read", "Usuarios"))
+          .Create(create => create.Action("USUARIOS_Create", "Usuarios"))
+          .Update(update => update.Action("USUARIOS_Update", "Usuarios"))
+          .Destroy(destroy => destroy.Action("USUARIOS_Destroy", "Usuarios"))
+      )
+                            )
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+<!-- /Row -->

@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="AppDTModelStoreContainer" CdmEntityContainer="AppDTEntities">
+    <FunctionImportMapping FunctionImportName="sp_SET_HORARIO" FunctionName="AppDTModel.Store.sp_SET_HORARIO" />
+    <EntitySetMapping Name="DESTINO_LOGISTIC">
+      <EntityTypeMapping TypeName="AppDTModel.DESTINO_LOGISTIC">
+        <MappingFragment StoreEntitySet="DESTINO_LOGISTIC">
+          <ScalarProperty Name="dest_addres" ColumnName="dest_addres" />
+          <ScalarProperty Name="dest_name" ColumnName="dest_name" />
+          <ScalarProperty Name="dest_id" ColumnName="dest_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TRANS_LOGISTIC">
+      <EntityTypeMapping TypeName="AppDTModel.TRANS_LOGISTIC">
+        <MappingFragment StoreEntitySet="TRANS_LOGISTIC">
+          <ScalarProperty Name="tran_password" ColumnName="tran_password" />
+          <ScalarProperty Name="tran_user" ColumnName="tran_user" />
+          <ScalarProperty Name="tran_phone" ColumnName="tran_phone" />
+          <ScalarProperty Name="tran_name" ColumnName="tran_name" />
+          <ScalarProperty Name="tran_id" ColumnName="tran_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GUIA_LOGISTIC">
+      <EntityTypeMapping TypeName="AppDTModel.GUIA_LOGISTIC">
+        <MappingFragment StoreEntitySet="GUIA_LOGISTIC">
+          <ScalarProperty Name="guia_lonend" ColumnName="guia_lonend" />
+          <ScalarProperty Name="guia_latend" ColumnName="guia_latend" />
+          <ScalarProperty Name="guia_lon" ColumnName="guia_lon" />
+          <ScalarProperty Name="guia_lat" ColumnName="guia_lat" />
+          <ScalarProperty Name="guia_status" ColumnName="guia_status" />
+          <ScalarProperty Name="tras_id" ColumnName="tras_id" />
+          <ScalarProperty Name="guia_date" ColumnName="guia_date" />
+          <ScalarProperty Name="guia_code" ColumnName="guia_code" />
+          <ScalarProperty Name="guia_destino" ColumnName="guia_destino" />
+          <ScalarProperty Name="guia_origen" ColumnName="guia_origen" />
+          <ScalarProperty Name="guia_id" ColumnName="guia_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vis_GUIAS">
+      <EntityTypeMapping TypeName="AppDTModel.vis_GUIAS">
+        <MappingFragment StoreEntitySet="vis_GUIAS">
+          <ScalarProperty Name="guia_status" ColumnName="guia_status" />
+          <ScalarProperty Name="tran_name" ColumnName="tran_name" />
+          <ScalarProperty Name="tran_id" ColumnName="tran_id" />
+          <ScalarProperty Name="guia_date" ColumnName="guia_date" />
+          <ScalarProperty Name="guia_code" ColumnName="guia_code" />
+          <ScalarProperty Name="destino" ColumnName="destino" />
+          <ScalarProperty Name="guia_destino" ColumnName="guia_destino" />
+          <ScalarProperty Name="origen" ColumnName="origen" />
+          <ScalarProperty Name="guia_origen" ColumnName="guia_origen" />
+          <ScalarProperty Name="guia_id" ColumnName="guia_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DESTINO_LOGISTIC_COSTO">
+      <EntityTypeMapping TypeName="AppDTModel.DESTINO_LOGISTIC_COSTO">
+        <MappingFragment StoreEntitySet="DESTINO_LOGISTIC_COSTO">
+          <ScalarProperty Name="dest_cost_redondo" ColumnName="dest_cost_redondo" />
+          <ScalarProperty Name="dest_cost" ColumnName="dest_cost" />
+          <ScalarProperty Name="dest_end" ColumnName="dest_end" />
+          <ScalarProperty Name="dest_ini" ColumnName="dest_ini" />
+          <ScalarProperty Name="cost_id" ColumnName="cost_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vis_Tarifas">
+      <EntityTypeMapping TypeName="AppDTModel.vis_Tarifas">
+        <MappingFragment StoreEntitySet="vis_Tarifas">
+          <ScalarProperty Name="dest_cost_redondo" ColumnName="dest_cost_redondo" />
+          <ScalarProperty Name="dest_cost" ColumnName="dest_cost" />
+          <ScalarProperty Name="destino" ColumnName="destino" />
+          <ScalarProperty Name="dest_end" ColumnName="dest_end" />
+          <ScalarProperty Name="origen" ColumnName="origen" />
+          <ScalarProperty Name="dest_ini" ColumnName="dest_ini" />
+          <ScalarProperty Name="cost_id" ColumnName="cost_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="USUARIOS_LOGISTIC">
+      <EntityTypeMapping TypeName="AppDTModel.USUARIOS_LOGISTIC">
+        <MappingFragment StoreEntitySet="USUARIOS_LOGISTIC">
+          <ScalarProperty Name="user_role" ColumnName="user_role" />
+          <ScalarProperty Name="user_password" ColumnName="user_password" />
+          <ScalarProperty Name="user_user" ColumnName="user_user" />
+          <ScalarProperty Name="user_mail" ColumnName="user_mail" />
+          <ScalarProperty Name="user_phone" ColumnName="user_phone" />
+          <ScalarProperty Name="user_name" ColumnName="user_name" />
+          <ScalarProperty Name="comp_id" ColumnName="comp_id" />
+          <ScalarProperty Name="user_id" ColumnName="user_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="ps_GUIAS_RESUMEN" FunctionName="AppDTModel.Store.ps_GUIAS_RESUMEN">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="AppDTModel.ps_GUIAS_RESUMEN_Result">
+          <ScalarProperty Name="guia_id" ColumnName="guia_id" />
+          <ScalarProperty Name="guia_origen" ColumnName="guia_origen" />
+          <ScalarProperty Name="origen" ColumnName="origen" />
+          <ScalarProperty Name="guia_destino" ColumnName="guia_destino" />
+          <ScalarProperty Name="destino" ColumnName="destino" />
+          <ScalarProperty Name="guia_code" ColumnName="guia_code" />
+          <ScalarProperty Name="guia_date" ColumnName="guia_date" />
+          <ScalarProperty Name="tran_id" ColumnName="tran_id" />
+          <ScalarProperty Name="tran_name" ColumnName="tran_name" />
+          <ScalarProperty Name="guia_status" ColumnName="guia_status" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+  </EntityContainerMapping>
+</Mapping>
